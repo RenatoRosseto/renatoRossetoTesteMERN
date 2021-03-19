@@ -1,6 +1,13 @@
 const User = require('../models/User')
 
 module.exports = {
+
+  async index(request, response) {
+    const users = await User.find()
+
+    return response.json(users)
+  },
+
   async store(request, response) {
     console.log(request.body)
     const { DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status } = request.body
