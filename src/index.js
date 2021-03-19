@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const routes = require('./routes')
 
 const app = express()
 
@@ -9,9 +10,6 @@ mongoose.connect('mongodb+srv://renatoteste:renatoteste@cluster0.zuoer.mongodb.n
 })
 
 app.use(express.json())
-
-app.get('/', (request, response) => {
-  return response.send({message: 'Hello World'})
-})
+app.use(routes)
 
 app.listen(3333)
