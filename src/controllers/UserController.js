@@ -10,10 +10,10 @@ module.exports = {
 
   async store(request, response) {
     console.log(request.body)
-    const { DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status } = request.body
+    const { DataCad, Cargo, cpf, Nome, UfNasc, Salario, Status } = request.body
 
     //procura usuario na base, retorna o obj encontrado ou null
-    let user = await User.findOne({ Cpf })
+    let user = await User.findOne({ Cpf:cpf })
 
     //caso usuario não existir, um novo usuario sera criado, do contrario, dados do usuario atualizados
     if(!user) {
@@ -21,16 +21,24 @@ module.exports = {
       user = await User.create({
         dataCad: DataCad,
         cargo: Cargo,
-        cpf: Cpf,
+        cpf: cpf,
         nome: Nome,
         ufNasc: UfNasc,
         salario: Salario,
         status: Status
       })
     }
-    else {
-     //atualiza dados
+    else { //atualiza dados
      console.log("atualiza dados")
+     user = await User.findOneAndUpdate({
+      dataCad: DataCad,
+      cargo: Cargo,
+      cpf: cpf,
+      nome: Nome,
+      ufNasc: UfNasc,
+      salario: Salario,
+      status: Status
+    })
     }
 
     return response.json(user)
