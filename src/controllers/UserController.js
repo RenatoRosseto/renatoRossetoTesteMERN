@@ -34,5 +34,27 @@ module.exports = {
     }
 
     return response.json(user)
+  },
+
+  async destroy(request, response) {
+    console.log(request.query)
+    const { cpf } = request.query
+    let mensagem = {mensagem: "Erro ao deletar usuario com cpf: " + cpf}
+
+    const user = await User.findOneAndDelete({ Cpf: cpf }, function(err) {
+      if (!err) {
+        console.log("Usuario com cpf: " + cpf + " deletado com sucesso!")
+        mensagem = {mensagem: "Usuario com cpf: " + cpf + " deletado com sucesso!"}
+      }
+      else {
+        console.log("Erro ao deletar usuario com cpf: " + cpf)
+        mensagem = {mensagem: "Erro ao deletar usuario com cpf: " + cpf}
+      }
+  })
+
+    console.log(user)
+
+    return response.json(mensagem)
   }
+
 }

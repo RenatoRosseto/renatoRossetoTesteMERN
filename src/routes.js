@@ -6,6 +6,7 @@ const routes = Router()
 
 routes.post('/user', UserController.store)
 routes.get('/users', UserController.index)
+routes.delete('/user', UserController.destroy)
 
 routes.get('/search', SearchController.index)
 
